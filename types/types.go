@@ -1,5 +1,6 @@
 package types
 
+//Cut holds the info for one individual cut
 type Cut struct {
 	Name       string  `json:"name"`
 	Quantity   int     `json:"quantity"`
@@ -7,13 +8,16 @@ type Cut struct {
 	Length     float64 `json:"length"`
 }
 
+//DimensionGroup holds like dimensions
 type DimensionGroup struct {
 	Cuts        []Cut
 	TotalLength float64
 }
 
+//DimensionGroups groups all like cuts together
 type DimensionGroups map[string]DimensionGroup
 
+//ShoppingList gets the shopping list for one dimension
 type ShoppingList struct {
 	Dimension    string    `json:"dimension"`
 	LenBoard     float64   `json:"len_board"`

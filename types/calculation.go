@@ -1,9 +1,6 @@
 package types
 
-import (
-	"fmt"
-)
-
+//GroupDimensions combines all cuts of the same dimension
 func GroupDimensions(cuts []Cut) (dimensionGroups DimensionGroups) {
 	dimensionGroups = make(DimensionGroups)
 	for _, cut := range cuts {
@@ -21,23 +18,7 @@ func GroupDimensions(cuts []Cut) (dimensionGroups DimensionGroups) {
 	return
 }
 
-func (dimensionGroups DimensionGroups) PrintFullList(lenBoards float64) (shoppingList []ShoppingList) {
-	for _, dimensionGroup := range dimensionGroups {
-		shopList := dimensionGroup.PrintList(lenBoards)
-		shoppingList = append(shoppingList, shopList)
-	}
-	return
-}
-
-func (dimensionGroup DimensionGroup) PrintList(lenBoards float64) (shoppingList ShoppingList) {
-	fmt.Println("================")
-	shoppingList = dimensionGroup.NumBoard(lenBoards)
-	fmt.Printf("(%v) %v-inch %s board(s) needed\n", shoppingList.Quantity, shoppingList.LenBoard, shoppingList.Dimension)
-	fmt.Println("Scrap lengths:", shoppingList.ScrapLengths)
-	fmt.Printf("%s total Length: %v\n", shoppingList.Dimension, dimensionGroup.TotalLength)
-	return
-}
-
+//NumBoard gets the number of boards needed for one dimension
 func (dimensionGroup DimensionGroup) NumBoard(lenBoards float64) (shoppingList ShoppingList) {
 	// boardQuantity = math.Ceil(dimensionGroup.TotalLength / lenBoards)
 	// scrapBoard = (boardQuantity * lenBoards) - dimensionGroup.TotalLength
