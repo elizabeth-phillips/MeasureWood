@@ -10,7 +10,8 @@ type Cut struct {
 
 //DimensionGroup holds like dimensions
 type DimensionGroup struct {
-	Cuts        []Cut
+	Cuts        []float64
+	Dimension   string
 	TotalLength float64
 }
 
@@ -19,8 +20,9 @@ type DimensionGroups map[string]DimensionGroup
 
 //ShoppingList gets the shopping list for one dimension
 type ShoppingList struct {
-	Dimension    string    `json:"dimension"`
-	LenBoard     float64   `json:"len_board"`
-	Quantity     float64   `json:"quantity"`
-	ScrapLengths []float64 `json:"scrap_lengths"`
+	Dimension    string      `json:"dimension"`
+	LenBoard     float64     `json:"len_board"`
+	Quantity     float64     `json:"quantity"`
+	ScrapLengths []float64   `json:"scrap_lengths"`
+	Boards       [][]float64 `json:"boards"`
 }
