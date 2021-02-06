@@ -1,5 +1,10 @@
 package types
 
+import (
+	"fmt"
+	"sort"
+)
+
 //GroupDimensions combines all cuts of the same dimension
 func GroupDimensions(cuts []Cut) (dimensionGroups DimensionGroups) {
 	dimensionGroups = make(DimensionGroups)
@@ -8,6 +13,7 @@ func GroupDimensions(cuts []Cut) (dimensionGroups DimensionGroups) {
 			for i := 0; i < cut.Quantity; i++ {
 				dimension.Cuts = append(dimension.Cuts, cut.Length)
 			}
+			sort.Float64s(dimension.Cuts)
 			dimension.TotalLength += cut.Length * float64(cut.Quantity)
 			dimensionGroups[cut.Dimensions] = dimension
 		} else {
@@ -51,5 +57,23 @@ func (dimensionGroup DimensionGroup) PossibleShoppingList(lenBoards float64) (sh
 	}
 	shoppingList.ScrapLengths = append(shoppingList.ScrapLengths, tempLength)
 
+	return
+}
+
+func Permutation(a []float64, size int) (allPermutations [][]float64) {
+	if size == 1 {
+		fmt.Println(a)
+		allPermutations = append(allPermutations, a)
+	}
+
+	for i := 0; i < size; i++ {
+		Permutation(a, size-1)
+
+		if size%2 == 1 {
+			a[0], a[size-1] = a[size-1], a[0]
+		} else {
+			a[i], a[size-1] = a[size-1], a[i]
+		}
+	}
 	return
 }
